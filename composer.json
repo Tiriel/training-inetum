@@ -14,5 +14,9 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {}
+    "require": {
+        "symfony/http-client": "7.1.x-dev",
+        "psr/log": "^3.0@dev",
+        "symfony/cache": "7.1.x-dev"
+    }
 }

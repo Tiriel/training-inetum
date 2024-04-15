@@ -2,6 +2,7 @@
 
 namespace App\User;
 
+use App\Auth\Exception\AuthenticationException;
 use App\Auth\Interface\AuthInterface;
 
 class Member extends User implements AuthInterface
@@ -14,6 +15,10 @@ class Member extends User implements AuthInterface
         protected readonly string $password,
         protected readonly int $age,
     ) {
+        if (!str_starts_with($this->password, '$2y$')) {
+            throw new \InvalidArgumentException();
+        }
+
         parent::__construct($name);
         static::$instances++;
     }
@@ -25,7 +30,7 @@ class Member extends User implements AuthInterface
 
     public function auth(string $login, string $password): bool
     {
-        if ($login !== $this->login || $password !== $this->password) {
+        if ($login !== $this->login || !password_verify($password, $this->password)) {
             throw new AuthenticationException('Authentication Failed!');
         }
 
