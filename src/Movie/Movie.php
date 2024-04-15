@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Movie;
+
+use App\Trait\ToStringTrait;
+
 class Movie
 {
     use ToStringTrait;
@@ -7,8 +11,7 @@ class Movie
     public function __construct(
         protected string $title,
         protected \DateTimeImmutable $releasedAt,
-    )
-    {
+    ) {
     }
 
     public function getTitle(): string

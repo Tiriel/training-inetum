@@ -1,5 +1,6 @@
 <?php
 
+namespace App\Trait;
 trait ToStringTrait
 {
     protected ?string $name = null;
@@ -17,6 +18,6 @@ trait ToStringTrait
 
     public function __toString(): string
     {
-        return (string) $this->name;
+        return (string)$this->name;
     }
 }

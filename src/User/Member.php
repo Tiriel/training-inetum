@@ -1,5 +1,9 @@
 <?php
 
+namespace App\User;
+
+use App\Auth\Interface\AuthInterface;
+
 class Member extends User implements AuthInterface
 {
     protected static int $instances = 0;
@@ -9,8 +13,7 @@ class Member extends User implements AuthInterface
         protected readonly string $login,
         protected readonly string $password,
         protected readonly int $age,
-    )
-    {
+    ) {
         parent::__construct($name);
         static::$instances++;
     }

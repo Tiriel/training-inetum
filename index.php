@@ -1,12 +1,9 @@
 <?php
 
-require __DIR__.'/AuthenticationException.php';
-require __DIR__.'/ToStringTrait.php';
-require __DIR__.'/User.php';
-require __DIR__.'/AuthInterface.php';
-require __DIR__.'/Member.php';
-require __DIR__.'/AdminLevel.php';
-require __DIR__.'/Admin.php';
+use App\User\Admin;
+use App\User\Member;
+
+require __DIR__.'/vendor/autoload.php';
 
 $m1 = new Member('Ben','Ben', 'abcd', 36);
 $m2 = new Member('Tom','Tom', 'abcd', 25);

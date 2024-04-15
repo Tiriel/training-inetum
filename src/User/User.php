@@ -1,5 +1,9 @@
 <?php
 
+namespace App\User;
+
+use App\Trait\ToStringTrait;
+
 abstract class User
 {
     use ToStringTrait;
