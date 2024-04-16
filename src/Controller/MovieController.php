@@ -31,7 +31,20 @@ class MovieController extends AbstractController
         ];
 
         return $this->render('movie/show.html.twig', [
-            'movie' => $movie
+            'movie' => $movie,
         ]);
+    }
+
+    public function decades(): Response
+    {
+        $decades = [
+            ['year' => '90'],
+            ['year' => '80'],
+            ['year' => '70'],
+        ];
+
+        return $this->render('includes/_decades.html.twig', [
+            'decades' => $decades,
+        ])->setTtl(3600);
     }
 }
