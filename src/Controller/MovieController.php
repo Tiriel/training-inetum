@@ -2,7 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Movie;
+use App\Repository\MovieRepository;
+use Pagerfanta\Doctrine\ORM\QueryAdapter;
+use Pagerfanta\Pagerfanta;
+use Symfony\Bridge\Twig\Attribute\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -10,29 +16,24 @@ use Symfony\Component\Routing\Attribute\Route;
 class MovieController extends AbstractController
 {
     #[Route('', name: 'app_movie_index')]
-    public function index(): Response
+    public function index(Request $request, MovieRepository $repository): Response
     {
+        $movies = Pagerfanta::createForCurrentPageWithMaxPerPage(
+            new QueryAdapter($repository->createQueryBuilder('m')),
+            $request->query->getInt('page', 1),
+            6
+        );
+
         return $this->render('movie/index.html.twig', [
-            'controller_name' => 'MovieController::index',
+            'movies' => $movies,
         ]);
     }
 
-    #[Route('/{id<\d+>}', name: 'app_movie_show')]
-    public function show(int $id): Response
+    #[Template('movie/show.html.twig')]
+    #[Route('/{id}', name: 'app_movie_show', requirements: ['id' => '[0-7][0-9A-HJKMNP-TV-Z]{25}'])]
+    public function show(?Movie $movie): array
     {
-        $movie = [
-            'id' => $id,
-            'title' => 'Star Wars - Episode IV : A New Hope',
-            'poster' => 'https://m.media-amazon.com/images/M/MV5BOTA5NjhiOTAtZWM0ZC00MWNhLThiMzEtZDFkOTk2OTU1ZDJkXkEyXkFqcGdeQXVyMTA4NDI1NTQx._V1_SX300.jpg',
-            'country' => 'United States',
-            'releasedAt' => new \DateTimeImmutable('25-05-1977'),
-            'genres' => ['Action', 'Adventure', 'Fantasy'],
-            'plot' => 'A young farmer breaks his father\'s toy.',
-        ];
-
-        return $this->render('movie/show.html.twig', [
-            'movie' => $movie,
-        ]);
+        return ['movie' => $movie];
     }
 
     public function decades(): Response

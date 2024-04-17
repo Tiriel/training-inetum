@@ -14,7 +14,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Genre[]    findAll()
  * @method Genre[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class GenreRepository extends ServiceEntityRepository
+class GenreRepository extends AbstractWritingRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

@@ -5,14 +5,19 @@ namespace App\Entity;
 use App\Repository\MovieRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\IdGenerator\UlidGenerator;
+use Symfony\Bridge\Doctrine\Types\UlidType;
+use Symfony\Component\Uid\Ulid;
 
 #[ORM\Entity(repositoryClass: MovieRepository::class)]
+#[ORM\ChangeTrackingPolicy('DEFERRED_EXPLICIT')]
 class Movie
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
+    #[ORM\CustomIdGenerator(UlidGenerator::class)]
+    #[ORM\Column(type: UlidType::NAME)]
+    private ?Ulid $id = null;
 
     #[ORM\Column(length: 255)]
     private ?string $title = null;
@@ -32,7 +37,7 @@ class Movie
     #[ORM\Column(nullable: true)]
     private ?int $price = null;
 
-    public function getId(): ?int
+    public function getId(): ?Ulid
     {
         return $this->id;
     }
