@@ -1,7 +1,8 @@
 {% props target = '', label = '' %}
 
 <li class="nav-item">
-    <a href="{{ path(target) }}" class="nav-link{{ app.current_route starts with target|slice(0, 8) ? ' active' : '' }}">
+    <a href="{{ path(target) }}"
+       class="nav-link{{ app.current_route == target ? ' active' : '' }}">
         {{ label }}
     </a>
 </li>
