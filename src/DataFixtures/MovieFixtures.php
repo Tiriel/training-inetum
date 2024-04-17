@@ -5,10 +5,11 @@ namespace App\DataFixtures;
 use App\Entity\Genre;
 use App\Entity\Movie;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Finder\Finder;
 
-class MovieFixtures extends Fixture
+class MovieFixtures extends Fixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
@@ -36,11 +37,11 @@ class MovieFixtures extends Fixture
                 /* ->setImdbId($datum['imdbID']) */
             ;
 
-            /* foreach (explode(', ', $datum['Genre']) as $genreName) { */
-            /*     $genre = $genres[$genreName] */
-            /*         ?? $genres[$genreName] = (new Genre())->setName($genreName); */
-            /*     $movie->addGenre($genre); */
-            /* } */
+            foreach (explode(', ', $datum['Genre']) as $genreName) {
+                $genre = $genres[$genreName]
+                    ?? $genres[$genreName] = (new Genre())->setName($genreName);
+                $movie->addGenre($genre);
+            }
 
             yield $movie;
         }
@@ -60,5 +61,10 @@ class MovieFixtures extends Fixture
                 yield $item;
             }
         }
+    }
+
+    public function getOrder()
+    {
+        return 5;
     }
 }

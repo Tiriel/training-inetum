@@ -4,10 +4,11 @@ namespace App\DataFixtures;
 
 use App\Entity\Book;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Finder\Finder;
 
-class BookFixtures extends Fixture
+class BookFixtures extends Fixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
@@ -48,5 +49,10 @@ class BookFixtures extends Fixture
                 yield $item;
             }
         }
+    }
+
+    public function getOrder()
+    {
+        return 10;
     }
 }

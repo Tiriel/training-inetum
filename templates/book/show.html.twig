@@ -15,6 +15,25 @@
                 <li class="list-group-item">ReleasedAt: {{ book.editedAt|date('d M Y') }}</li>
                 <li class="list-group-item">Plot: {{ book.plot }}</li>
             </ul>
+            <h3>Comments :</h3>
+            <ul class="list-group list-group-flush">
+            {% for comment in book.comments %}
+                <li class="list-group-item">
+                    <div class="">
+                        <div>
+                        <h4>{{ comment.email }}</h4>
+                        <small>Posted at {{ comment.postedAt|date('d M Y') }}</small>
+                        </div>
+                        <div>
+                            <p>{{ comment.content }}</p>
+                        </div>
+
+                    </div>
+                </li>
+            {% else %}
+                <p>No comments yet...</p>
+            {% endfor %}
+            </ul>
         {% else %}
             <h1>Book not found.</h1>
         {% endif %}
