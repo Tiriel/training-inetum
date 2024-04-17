@@ -29,6 +29,7 @@ class Contact
     public function setName(?string $name): Contact
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -40,6 +41,7 @@ class Contact
     public function setEmail(?string $email): Contact
     {
         $this->email = $email;
+
         return $this;
     }
 
@@ -51,6 +53,7 @@ class Contact
     public function setSubject(?string $subject): Contact
     {
         $this->subject = $subject;
+
         return $this;
     }
 
@@ -62,6 +65,7 @@ class Contact
     public function setContent(?string $content): Contact
     {
         $this->content = $content;
+
         return $this;
     }
 
@@ -73,6 +77,7 @@ class Contact
     public function setCreatedAt(?\DateTimeImmutable $createdAt): Contact
     {
         $this->createdAt = $createdAt;
+
         return $this;
     }
 }

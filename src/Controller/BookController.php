@@ -34,7 +34,7 @@ class BookController extends AbstractController
         name: 'app_book_show',
         requirements: ['id' => '[0-7][0-9A-HJKMNP-TV-Z]{25}'],
         methods: ['GET'],
-        //condition: "request.headers.get('x-sso-header') == 'foobar'",
+        // condition: "request.headers.get('x-sso-header') == 'foobar'",
         priority: 1
     )]
     public function show(?string $id, BookRepository $repository): Response

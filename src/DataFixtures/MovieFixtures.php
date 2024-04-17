@@ -24,7 +24,7 @@ class MovieFixtures extends Fixture implements OrderedFixtureInterface
     {
         $genres = [];
         foreach ($this->getMoviesData() as $datum) {
-            $date = $datum['Released'] === 'N/A' ? $datum['Year'] : $datum['Released'];
+            $date = 'N/A' === $datum['Released'] ? $datum['Year'] : $datum['Released'];
 
             $movie = (new Movie())
                 ->setTitle($datum['Title'])
