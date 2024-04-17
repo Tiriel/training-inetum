@@ -2,6 +2,8 @@ twig:
     file_name_pattern: '*.twig'
     globals:
         sf_version: 7.0
+    form_themes:
+        - 'bootstrap_5_layout.html.twig'
 
 when@test:
     twig:

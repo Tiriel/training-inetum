@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Book;
+use App\Form\BookType;
 use App\Repository\BookRepository;
 use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Pagerfanta\Pagerfanta;
@@ -42,10 +44,23 @@ class BookController extends AbstractController
         ]);
     }
 
+    #[Route('/{title<\w+>}', name: 'app_book_by_title')]
     public function byTitle(string $title, BookRepository $repository): Response
     {
         return $this->render('book/show.html.twig', [
             'book' => $repository->findLikeTitle($title),
+        ]);
+    }
+
+    #[Route('/new', name: 'app_book_new', methods: ['GET', 'POST'], priority: 1)]
+    #[Route('/{id}/edit', name: 'app_book_edit', requirements: ['id' => '[0-7][0-9A-HJKMNP-TV-Z]{25}'], methods: ['GET', 'POST'])]
+    public function save(?Book $book, Request $request): Response
+    {
+        $book ??= new Book();
+        $form = $this->createForm(BookType::class, $book);
+
+        return $this->render('book/new.html.twig', [
+            'form' => $form,
         ]);
     }
 }

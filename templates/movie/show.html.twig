@@ -22,6 +22,9 @@
                 <li class="list-group-item">Genre : {{ movie.genres|map(genre => genre.name)|join(', ') }}</li>
                 <li class="list-group-item">Plot : {{ movie.plot }}</li>
             </ul>
+            <div>
+                <a href="{{ path('app_movie_edit', {id: movie.id}) }}" class="btn btn-outline-primary">Edit</a>
+            </div>
         {% else %}
             <h1>Not found</h1>
         {% endif %}

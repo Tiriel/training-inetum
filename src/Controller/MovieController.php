@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Movie;
+use App\Form\MovieType;
 use App\Repository\MovieRepository;
 use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Pagerfanta\Pagerfanta;
@@ -34,6 +35,18 @@ class MovieController extends AbstractController
     public function show(?Movie $movie): array
     {
         return ['movie' => $movie];
+    }
+
+    #[Route('/new', name: 'app_movie_new', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_movie_edit', requirements: ['id' => '[0-7][0-9A-HJKMNP-TV-Z]{25}'], methods: ['GET', 'POST'])]
+    public function save(?Movie $movie, Request $request): Response
+    {
+        $movie ??= new Movie();
+        $form = $this->createForm(MovieType::class, $movie);
+
+        return $this->render('movie/new.html.twig', [
+            'form' => $form,
+        ]);
     }
 
     public function decades(): Response
