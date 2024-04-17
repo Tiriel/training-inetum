@@ -2,11 +2,22 @@
 
 namespace App\Dto;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 class Contact
 {
+    #[Assert\NotBlank()]
     protected ?string $name = null;
+
+    #[Assert\Email()]
+    #[Assert\NotBlank()]
     protected ?string $email = null;
+
+    #[Assert\NotBlank()]
     protected ?string $subject = null;
+
+    #[Assert\Length(min: 30)]
+    #[Assert\NotBlank()]
     protected ?string $content = null;
     protected ?\DateTimeImmutable $createdAt = null;
 

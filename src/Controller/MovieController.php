@@ -39,10 +39,17 @@ class MovieController extends AbstractController
 
     #[Route('/new', name: 'app_movie_new', methods: ['GET', 'POST'])]
     #[Route('/{id}/edit', name: 'app_movie_edit', requirements: ['id' => '[0-7][0-9A-HJKMNP-TV-Z]{25}'], methods: ['GET', 'POST'])]
-    public function save(?Movie $movie, Request $request): Response
+    public function save(?Movie $movie, Request $request, MovieRepository $repository): Response
     {
         $movie ??= new Movie();
         $form = $this->createForm(MovieType::class, $movie);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $repository->save($movie);
+
+            return $this->redirectToRoute('app_movie_show', ['id' => $movie->getId()]);
+        }
 
         return $this->render('movie/new.html.twig', [
             'form' => $form,
